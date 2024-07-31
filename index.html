@@ -105,9 +105,6 @@
     </div>
   </div>
 
-  <!-- Include SheetJS library -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
-
   <script>
     // Sample event data
     const events = [
@@ -159,32 +156,12 @@
     // Handle form submission
     document.getElementById('regForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      const formData = new FormData(e.target);
-      const data = Object.fromEntries(formData.entries());
-      const eventTitle = document.getElementById('registration-event-title').innerText;
-
-      // Add the event title to the data
-      data.event = eventTitle;
-
-      // Generate an Excel file
-      generateExcelFile(data);
-
       alert('Registration Successful!');
       // Clear form and show event list
       document.getElementById('regForm').reset();
       document.getElementById('registration-form').classList.add('hidden');
       document.getElementById('event-list').classList.remove('hidden');
     });
-
-    // Function to generate Excel file
-    function generateExcelFile(data) {
-      const wb = XLSX.utils.book_new();
-      const ws = XLSX.utils.json_to_sheet([data]);
-      XLSX.utils.book_append_sheet(wb, ws, "Registrations");
-
-      // Generate Excel file and download
-      XLSX.writeFile(wb, `${data.event}_Registration.xlsx`);
-    }
 
     // Initial render of the event list
     renderEventList();
